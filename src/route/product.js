@@ -21,4 +21,8 @@ router.get("/allProduct",authenticateToken,productController.allProducts);
 
 //product detail
 router.get("/getProductDetail/:id",productController.getProductDetail);
+
+// prosuct delete
+router.delete("/deleteProduct/:id",productController.deleteProduct);
+
 module.exports= router;

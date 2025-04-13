@@ -112,3 +112,28 @@ exports.getProductDetail = async (req, res) => {
       });
   }
 };
+
+// delete product using id
+exports.deleteProduct =async (req, res) => {
+  try {
+    // Use the id from the URL parameters to find and delete the product
+    const deletedProduct = await Product.findByIdAndDelete(req.params.id);
+    
+    // If no product was found, return a 404 error
+    if (!deletedProduct) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+    
+    // On success, return a success message along with the deleted product
+    res.status(200).json({
+      message: 'Product deleted successfully',
+      product: deletedProduct
+    });
+  } catch (error) {
+    // Catch any errors and return a 500 error with details
+    res.status(500).json({
+      error: 'An error occurred while deleting the product',
+      details: error.message
+    });
+  }
+}
